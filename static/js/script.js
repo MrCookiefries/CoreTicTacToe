@@ -66,10 +66,100 @@ function winning(board, player) {
         return false;
     }
 }
-var bestSpot = minimax(origBoard, aiPlayer);
-console.log("index: " + bestSpot.index);
-console.log("function calls: " + fc);
+
+function getAiNum() {
+    let result = minimax(origBoard, aiPlayer);
+    let num = result.index;
+    return num;
+}
+
+function findSpot(target) {
+    if (target.attr('id') === 's0') {
+        return 0;
+    } else if (target.attr('id') === 's1') {
+        return 1;
+    } else if (target.attr('id') === 's2') {
+        return 2;
+    } else if (target.attr('id') === 's3') {
+        return 3;
+    } else if (target.attr('id') === 's4') {
+        return 4;
+    } else if (target.attr('id') === 's5') {
+        return 5;
+    } else if (target.attr('id') === 's6') {
+        return 6;
+    } else if (target.attr('id') === 's7') {
+        return 7;
+    } else if (target.attr('id') === 's8') {
+        return 8;
+    } else {
+        console.log('Error in finding current spot by id');
+    }
+}
+
+function updateBoard(text, num) {
+    let loop = 0;
+    origBoard.forEach((index) => {
+        if (index === text) {
+            if (num === 0) {
+                $('#s0 .text').html(text);
+            } else if (num === 1) {
+                $('#s1 .text').html(text);
+            } else if (num === 2) {
+                $('#s2 .text').html(text);
+            } else if (num === 3) {
+                $('#s3 .text').html(text);
+            } else if (num === 4) {
+                $('#s4 .text').html(text);
+            } else if (num === 5) {
+                $('#s5 .text').html(text);
+            } else if (num === 6) {
+                $('#s6 .text').html(text);
+            } else if (num === 7) {
+                $('#s7 .text').html(text);
+            } else if (num === 8) {
+                $('#s8 .text').html(text);
+            } else {
+                console.log('Error with updateBoard function');
+            }
+        }
+        loop++;
+    })
+}
 
 $(document).ready(() => {
-
+    $('.spot').on('click', event => {
+        if (!$(event.currentTarget).hasClass('filled')) {
+            $(event.currentTarget).addClass("filled");
+            let id = findSpot($(event.currentTarget));
+            origBoard[id] = huPlayer;
+            updateBoard(huPlayer, id);
+            setTimeout(() => {
+                let aiSpot = getAiNum();
+                if (aiSpot === 0) {
+                    $('#s0').addClass("filled");
+                } else if (aiSpot === 1) {
+                    $('#s1').addClass("filled");
+                } else if (aiSpot === 2) {
+                    $('#s2').addClass("filled");
+                } else if (aiSpot === 3) {
+                    $('#s3').addClass("filled");
+                } else if (aiSpot === 4) {
+                    $('#s4').addClass("filled");
+                } else if (aiSpot === 5) {
+                    $('#s5').addClass("filled");
+                } else if (aiSpot === 6) {
+                    $('#s6').addClass("filled");
+                } else if (aiSpot === 7) {
+                    $('#s7').addClass("filled");
+                } else if (aiSpot === 8) {
+                    $('#s8').addClass("filled");
+                }
+                origBoard[aiSpot] = aiPlayer;
+                updateBoard(aiPlayer, aiSpot);
+            }, 1000)
+        } else {
+            console.log("Can't play here, the spot is already taken");
+        }
+    })
 })

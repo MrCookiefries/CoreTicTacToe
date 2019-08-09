@@ -15,5 +15,127 @@
 
 html, body {
     font-family: monospace;
-    background-image: linear-gradient(hsla(0, 0%, 0%, 0), hsla(0, 0%, 0%, 1));
+    background-image: linear-gradient(hsla(225, 85%, 60%, 0), var(--blue));
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background-repeat: no-repeat;
+}
+
+.game {
+    top: 5vh;
+    position: relative;
+    height: 90vw;
+    width: 90vw;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-gap: 5px;
+    background-color: var(--yellow);
+    box-shadow: -40px -40px 10px 8px var(--green), 40px 40px 10px 8px var(--red);
+    border: 10px solid var(--yellow);
+    border-radius: 40px;
+}
+
+.spot {
+    font-size: 140px;
+    background-color: var(--black);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 40px;
+    border: 4px dotted var(--black);
+    transition: border 400ms linear;
+    height: 100%;
+    width: 100%;
+}
+
+.spot:hover {
+    cursor: pointer;
+    border: 4px double var(--white);
+}
+
+.text {
+    text-align: center;
+    color: var(--white);
+    text-shadow: -2px -2px 4px var(--red), 2px 2px 4px var(--green);
+    transition: color 400ms ease-in-out, transform 200ms ease-in;
+}
+
+.text:hover {
+    color: var(--blue);
+    transform: scale(1.2);
+}
+
+.filled {
+    transition: transform 700ms linear;
+    transform: rotate(360deg);
+}
+
+.filled:hover {
+    cursor: not-allowed;
+}
+
+@media screen and (max-width: 2000px) {
+    .spot {
+        font-size: 190px;
+        border-radius: 80px;
+    }
+    .game {
+        grid-gap: 10px;
+        border-radius: 80px;
+    }
+}
+
+@media screen and (max-width: 1600px) {
+    .spot {
+        font-size: 170px;
+        border-radius: 32px;
+    }
+
+    .game {
+        grid-gap: 8px;
+        border-radius: 32px;
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    .spot {
+        font-size: 140px;
+        border-radius: 40px;
+    }
+
+    .game {
+        grid-gap: 5px;
+        border-radius: 40px;
+    }
+}
+
+@media screen and (max-width: 600px)  {
+    .spot {
+        font-size: 90px;
+    }
+}
+
+
+@media screen and (max-width: 400px)  {
+    .spot {
+        font-size: 60px;
+    }
+}
+
+@media screen and (orientation: portrait) {
+    .game {
+        height: 90vw;
+        width: 90vw;
+    }
+}
+
+@media screen and (orientation: landscape) {
+    .game {
+        height: 90vh;
+        width: 90vh;
+    }
 }
