@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<head lang="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tic Tac Toe</title>
+  <link rel="stylesheet" type="text/css" href="./style.css" />
+</head>
+
+<body>
+  <section class="menu">
+    <div class="main">
+      <h1 class="title">Tic Tac Toe</h1>
+      <p class="play">Start</p>
+    </div>
+    <div class="options">
+      <h2 class="numPlayers">Players</h2>
+      <div class="choices numPlayers players">
+        <p>1</p>
+        <p>2</p>
+      </div>
+      <h2 class="playerIcon">Icon</h2>
+      <div class="choices playerIcon player-choice">
+        <p>P1 - X</p>
+        <p>P1 - O</p>
+      </div>
+      <h2 class="firstPlay">Plays First</h2>
+      <div class="choices firstPlay plays-first">
+        <p>P1</p>
+        <p id="cpu">P2</p>
+        <p>Random</p>
+      </div>
+      <p class="startGame">Start</p>
+      <p class="startMessage"></p>
+    </div>
+  </section>
+  <section class="game">
+    <div class="spot" id="s0"><span class="text"> </span></div>
+    <div class="spot" id="s1"><span class="text"> </span></div>
+    <div class="spot" id="s2"><span class="text"> </span></div>
+    <div class="spot" id="s3"><span class="text"> </span></div>
+    <div class="spot" id="s4"><span class="text"> </span></div>
+    <div class="spot" id="s5"><span class="text"> </span></div>
+    <div class="spot" id="s6"><span class="text"> </span></div>
+    <div class="spot" id="s7"><span class="text"> </span></div>
+    <div class="spot" id="s8"><span class="text"> </span></div>
+  </section>
+  <section class="end">
+    <h1 class="message"></h1>
+    <p>Play Again</p>
+    <p>Home</p>
+  </section>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="./script.js"></script>
+</body>

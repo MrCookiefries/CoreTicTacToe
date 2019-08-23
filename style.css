@@ -1,0 +1,341 @@
+*, *::before, *::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --white: hsla(0, 100%, 100%, 1);
+    --black: hsla(0, 0%, 0%, 1);
+    --blue: hsla(225, 85%, 60%, 1);
+    --red: hsla(0, 100%, 72%, 1);
+    --yellow: hsla(60, 90%, 72%, 1);
+    --green: hsla(110, 100%, 72%, 1);
+}
+
+html, body {
+    font-family: monospace;
+    background-image: radial-gradient(circle, var(--blue) 60%, hsla(225, 85%, 60%, 0));
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-repeat: no-repeat;
+}
+
+.menu {
+    height: 90vw;
+    width: 90vw;
+    background-color: var(--white);
+    box-shadow: -40px -40px 10px 8px var(--green), 40px 40px 10px 8px var(--red);
+    border: 10px solid var(--white);
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main {
+    width: 90%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.title {
+    font-size: 80px;
+    font-weight: 600;
+    text-decoration: dashed;
+    text-align: center;
+    position: relative;
+    bottom: 30%;
+    text-decoration: wavy underline var(--blue);
+}
+
+.play {
+    font-size: 30px;
+    text-align: center;
+    padding: 10px;
+    border: 4px groove var(--blue);
+    position: relative;
+    background-color: var(--white);
+    color: var(--black);
+    transition: background-color 600ms ease-in-out, color 400ms ease-in-out;
+    box-shadow: -4px -4px 1px 2px var(--red), 4px 4px 1px 2px var(--green);
+}
+
+.play:hover {
+  color: var(--white);
+  background-color: var(--black);
+  cursor: pointer;
+}
+
+.options {
+    display: none;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    color: var(--black);
+    position: relative;
+}
+
+.options h2 {
+  font-size: 40px;
+  text-decoration: dashed underline var(--blue);
+  margin-bottom: 10px;
+}
+
+.choices {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.choices p, .startGame {
+  font-size: 28px;
+  padding: 8px;
+  border: 4px inset var(--blue);
+  border-radius: 8px;
+  width: auto;
+  margin: 10px;
+  transition: transform 400ms ease;
+  transform: scale(1);
+  font-weight: bolder;
+  box-shadow: 4px 6px hsla(0, 0%, 0%, 0.8);
+  display: inline-flex;
+}
+
+.choices p:hover, .startGame:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.playerIcon {
+  display: none;
+}
+
+.firstPlay {
+  display: none;
+}
+
+.startGame {
+  border: 4px inset var(--yellow);
+}
+
+.startMessage {
+  position: absolute;
+  text-align: center;
+  bottom: 10px;
+  left: 20px;
+  border: 6px double var(--black);
+  background-color: hsla(0, 100%, 72%, 0.75);
+  padding: 10px;
+  display: none;
+}
+
+.startMessage::before, .startMessage::after {
+  content: "  \26A0  ";
+}
+
+.end {
+    display: none;
+    height: 90vw;
+    width: 90vw;
+    background-color: var(--white);
+    box-shadow: -40px -40px 10px 8px var(--green), 40px 40px 10px 8px var(--red);
+    border: 10px solid var(--white);
+    border-radius: 40px;
+}
+
+.game {
+    height: 90vw;
+    width: 90vw;
+    display: none; /*grid*/
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-gap: 5px;
+    background-color: var(--white);
+    box-shadow: -40px -40px 10px 8px var(--green), 40px 40px 10px 8px var(--red);
+    border: 10px solid var(--white);
+    border-radius: 40px;
+}
+
+.spot {
+    font-size: 140px;
+    background-color: var(--black);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 40px;
+    border: 4px hidden var(--black);
+    transition: border 400ms linear;
+    height: 100%;
+    width: 100%;
+}
+
+.spot:hover {
+    cursor: pointer;
+    border: 4px double var(--yellow);
+}
+
+.text {
+    text-align: center;
+    color: var(--white);
+    text-shadow: -2px -2px 4px var(--red), 2px 2px 4px var(--green);
+    transition: color 400ms ease-in-out, transform 200ms ease-in;
+}
+
+.text:hover {
+    color: var(--blue);
+    transform: scale(1.2);
+}
+
+.filled {
+    transition: transform 600ms linear;
+    transform: rotate(360deg) scale(0.6);
+}
+
+.complete {
+    transition: transform 400ms linear;
+    transform: scale(1);
+}
+
+.filled:hover {
+    cursor: not-allowed;
+}
+
+@media screen and (max-width: 2000px) {
+    .spot {
+        font-size: 190px;
+        border-radius: 80px;
+    }
+    .game {
+        grid-gap: 10px;
+        border-radius: 80px;
+    }
+}
+
+@media screen and (max-width: 1600px) {
+    .spot {
+        font-size: 170px;
+        border-radius: 32px;
+    }
+
+    .game {
+        grid-gap: 8px;
+        border-radius: 32px;
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    .spot {
+        font-size: 140px;
+        border-radius: 40px;
+    }
+
+    .game {
+        grid-gap: 5px;
+        border-radius: 40px;
+    }
+}
+
+@media screen and (max-width: 1000px)  {
+    .options h2 {
+        font-size: 30px;
+    }
+
+    .choices {
+      margin-bottom: 20px;
+    }
+}
+
+@media screen and (max-width: 700px)  {
+    .choices p, .startGame {
+        font-size: 18px;
+        padding: 6px
+    }
+}
+
+@media screen and (max-width: 600px)  {
+    .spot {
+        font-size: 90px;
+    }
+
+    .options h2 {
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+
+    .choices {
+      margin-bottom: 5px;
+    }
+
+    .choices p, .startGame, .startMessage {
+        font-size: 14px;
+        margin: 5px;
+        padding: 5px;
+    }
+
+    .startMessage {
+      bottom: 0;
+      left: 5px;
+    }
+
+    .title {
+      font-size: 40px;
+      bottom: 20%;
+    }
+
+    .play {
+      font-size: 18px;
+      padding: 5px;
+    }
+}
+
+
+@media screen and (max-width: 400px)  {
+    .spot {
+        font-size: 60px;
+    }
+
+    .startMessage::after, .startMessage::before {
+      content: " ";
+    }
+
+    .choices p, .startGame, .startMessage {
+      margin: 2px;
+      font-weight: normal;
+    }
+
+    .startMessage {
+      position: fixed;
+    }
+}
+
+@media screen and (orientation: portrait) {
+    .game {
+        height: 90vw;
+        width: 90vw;
+    }
+
+    .menu {
+        height: 90vw;
+        width: 90vw;
+    }
+}
+
+@media screen and (orientation: landscape) {
+    .game {
+        height: 90vh;
+        width: 90vh;
+    }
+
+    .menu {
+        height: 90vh;
+        width: 90vh;
+    }
+}
