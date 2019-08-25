@@ -43,6 +43,7 @@ html, body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    position: relative;
 }
 
 .title {
@@ -70,6 +71,20 @@ html, body {
 .play:hover {
   color: var(--white);
   background-color: var(--black);
+  cursor: pointer;
+}
+
+.help {
+  font-size: 30px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: scale(1);
+  transition: transform 200ms linear;
+}
+
+.help:hover {
+  transform: scale(1.5);
   cursor: pointer;
 }
 
@@ -142,19 +157,33 @@ html, body {
 }
 
 .end {
-    display: none;
+    display: flex;
     height: 90vw;
     width: 90vw;
     background-color: var(--white);
     box-shadow: -40px -40px 10px 8px var(--green), 40px 40px 10px 8px var(--red);
     border: 10px solid var(--white);
     border-radius: 40px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.end h1 {
+  font-size: 40px;
+  text-align: center;
+  position: relative;
+  bottom: 30%;
+}
+
+.end p {
+
 }
 
 .game {
     height: 90vw;
     width: 90vw;
-    display: none; /*grid*/
+    display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     grid-gap: 5px;

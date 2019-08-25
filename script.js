@@ -199,6 +199,15 @@ function win(player) {
     }
     space.css('background-color', backGround);
   })
+  if (player === huPlayer) {
+    $('.final-msg').html('Player 1 Won');
+  } else {
+    if (numPlayers == 1) {
+      $('.final-msg').html('CPU Won');
+    } else {
+      $('.final-msg').html('Player 2 Won');
+    }
+  }
 }
 
 function stopGame() {
@@ -206,6 +215,10 @@ function stopGame() {
   setTimeout(() => {
     $('.spot').addClass("complete");
   }, 500)
+  setTimeout(() => {
+    $('.game').hide();
+    $('.end').show();
+  }, 2000)
 }
 
 let turn = 0;
@@ -214,6 +227,9 @@ let playsFirst = null;
 let moveOn = false;
 
 $(document).ready(() => {
+  $('.help').on('click', () => {
+    window.open('https://www.wikihow.com/Play-Tic-Tac-Toe', '_blank');
+  })
   $('.play').on('click', () => {
     $('.play').css({
       "top": "4px",
@@ -240,7 +256,7 @@ $(document).ready(() => {
       $("#cpu").html("P2");
       playsFirst = "P2";
     }
-    $('.playerIcon').show();
+    $('.playerIcon').slideDown(600);
     $(".startMessage").hide();
   })
   $('.player-choice p').on('click', event => {
@@ -257,7 +273,7 @@ $(document).ready(() => {
       huPlayer = "O";
       aiPlayer = "X";
     }
-    $('.firstPlay').show();
+    $('.firstPlay').slideDown(600);
     $(".startMessage").hide();
   })
   $('.plays-first p').on('click', event => {
@@ -296,92 +312,25 @@ $(document).ready(() => {
       $(".startMessage").show();
     } else {
       $(".startMessage").hide();
+      $(".menu").hide();
+      $('.game').show();
+      if (playsFirst == "CPU") {
+        cpuGame();
+      } else if (playsFirst == "Random" && numPlayers == 1) {
+        let randomNumber = Math.floor(Math.random() * 100) + 1;
+        if (randomNumber < 50) {
+          cpuGame();
+        }
+      }
     }
   })
+  $('.restart').on('click', () => {
+    setTimeout(() => {
+      window.location.href = window.location.href;
+    }, 800)
+  })
 
-  $('.spot').on('click', event => {
-    if (!$(event.currentTarget).hasClass('filled')) {
-      if (turn === 0) {
-        $(event.currentTarget).addClass("filled");
-        setTimeout(() => {
-          $(event.currentTarget).addClass("complete");
-        }, 500)
-        let id = findSpot($(event.currentTarget));
-        origBoard[id] = huPlayer;
-        updateBoard(huPlayer, id);
-        if (winning(origBoard, huPlayer)) {
-          win(huPlayer);
-          stopGame();
-        }
-        turn = 1;
-      } else {
-        return;
-      }
-      if (turn === 1) {
-        setTimeout(() => {
-          let aiSpot = getAiNum();
-          if (aiSpot === 0) {
-            $('#s0').addClass("filled");
-            setTimeout(() => {
-              $('#s0').addClass("complete");
-            }, 500)
-          } else if (aiSpot === 1) {
-            $('#s1').addClass("filled");
-            setTimeout(() => {
-              $('#s1').addClass("complete");
-            }, 500)
-          } else if (aiSpot === 2) {
-            $('#s2').addClass("filled");
-            setTimeout(() => {
-              $('#s2').addClass("complete");
-            }, 500)
-          } else if (aiSpot === 3) {
-            $('#s3').addClass("filled");
-            setTimeout(() => {
-              $('#s3').addClass("complete");
-            }, 500)
-          } else if (aiSpot === 4) {
-            $('#s4').addClass("filled");
-            setTimeout(() => {
-              $('#s4').addClass("complete");
-            }, 500)
-          } else if (aiSpot === 5) {
-            $('#s5').addClass("filled");
-            setTimeout(() => {
-              $('#s5').addClass("complete");
-            }, 500)
-          } else if (aiSpot === 6) {
-            $('#s6').addClass("filled");
-            setTimeout(() => {
-              $('#s6').addClass("complete");
-            }, 500)
-          } else if (aiSpot === 7) {
-            $('#s7').addClass("filled");
-            setTimeout(() => {
-              $('#s7').addClass("complete");
-            }, 500)
-          } else if (aiSpot === 8) {
-            $('#s8').addClass("filled");
-            setTimeout(() => {
-              $('#s8').addClass("complete");
-            }, 500)
-          }
-          origBoard[aiSpot] = aiPlayer;
-          updateBoard(aiPlayer, aiSpot);
-          setTimeout(() => {
-            if (winning(origBoard, aiPlayer)) {
-              win(aiPlayer);
-              stopGame();
-            }
-          }, 600)
-        }, 1000)
-        setTimeout(() => {
-          turn = 0;
-        }, 1800)
-      }
-    } else {
-      console.log("Can't play here, the spot is already taken");
-    }
+  function checkDraw() {
     if (!winning(origBoard, huPlayer) && !(winning(origBoard, aiPlayer))) {
       if ($('#s0').hasClass("filled") && $('#s1').hasClass("filled") && $('#s2').hasClass("filled") && $('#s3').hasClass("filled") && $('#s4').hasClass("filled") && $('#s5').hasClass("filled") && $('#s6').hasClass("filled") && $('#s7').hasClass("filled") && $('#s8').hasClass("filled")) {
         $('#s0').css('background-color', colors.yellow);
@@ -393,7 +342,218 @@ $(document).ready(() => {
         $('#s6').css('background-color', colors.yellow);
         $('#s7').css('background-color', colors.yellow);
         $('#s8').css('background-color', colors.yellow);
+        setTimeout(() => {
+          $('.final-msg').html('Draw');
+          $('.game').hide();
+          $('.end').show();
+        }, 2000)
       }
+    }
+  }
+
+  function cpuGame() {
+    let breakPoint = false;
+    if (breakPoint === false) {
+      let ranNum = Math.floor(Math.random() * 5) + 1;
+      if (ranNum === 1) {
+        $('#s0').addClass("filled");
+        setTimeout(() => {
+          $('#s0').addClass("complete");
+        }, 500)
+        origBoard[0] = aiPlayer;
+        updateBoard(aiPlayer, 0);
+        if (winning(origBoard, aiPlayer)) {
+          win(aiPlayer);
+          stopGame();
+        }
+        turn = 0;
+      } else if (ranNum === 2) {
+        $('#s2').addClass("filled");
+        setTimeout(() => {
+          $('#s2').addClass("complete");
+        }, 500)
+        origBoard[2] = aiPlayer;
+        updateBoard(aiPlayer, 2);
+        if (winning(origBoard, aiPlayer)) {
+          win(aiPlayer);
+          stopGame();
+        }
+        turn = 0;
+      } else if (ranNum === 3) {
+        $('#s4').addClass("filled");
+        setTimeout(() => {
+          $('#s4').addClass("complete");
+        }, 500)
+        origBoard[4] = aiPlayer;
+        updateBoard(aiPlayer, 4);
+        if (winning(origBoard, aiPlayer)) {
+          win(aiPlayer);
+          stopGame();
+        }
+        turn = 0;
+      } else if (ranNum === 4) {
+        $('#s6').addClass("filled");
+        setTimeout(() => {
+          $('#s6').addClass("complete");
+        }, 500)
+        origBoard[6] = aiPlayer;
+        updateBoard(aiPlayer, 6);
+        if (winning(origBoard, aiPlayer)) {
+          win(aiPlayer);
+          stopGame();
+        }
+        turn = 0;
+      } else if (ranNum === 5) {
+        $('#s8').addClass("filled");
+        setTimeout(() => {
+          $('#s8').addClass("complete");
+        }, 500)
+        origBoard[8] = aiPlayer;
+        updateBoard(aiPlayer, 8);
+        if (winning(origBoard, aiPlayer)) {
+          win(aiPlayer);
+          stopGame();
+        }
+        turn = 0;
+      }
+    }
+    breakPoint = true;
+  }
+  $('.spot').on('click', event => {
+    let oneGame = () => {
+      if (!$(event.currentTarget).hasClass('filled')) {
+        if (turn === 0) {
+          $(event.currentTarget).addClass("filled");
+          setTimeout(() => {
+            $(event.currentTarget).addClass("complete");
+          }, 500)
+          let id = findSpot($(event.currentTarget));
+          origBoard[id] = huPlayer;
+          updateBoard(huPlayer, id);
+          if (winning(origBoard, huPlayer)) {
+            win(huPlayer);
+            stopGame();
+          }
+          turn = 1;
+          checkDraw();
+        } else {
+          return;
+        }
+        if (turn === 1) {
+          setTimeout(() => {
+            let aiSpot = getAiNum();
+            if (aiSpot === 0) {
+              $('#s0').addClass("filled");
+              setTimeout(() => {
+                $('#s0').addClass("complete");
+              }, 500)
+            } else if (aiSpot === 1) {
+              $('#s1').addClass("filled");
+              setTimeout(() => {
+                $('#s1').addClass("complete");
+              }, 500)
+            } else if (aiSpot === 2) {
+              $('#s2').addClass("filled");
+              setTimeout(() => {
+                $('#s2').addClass("complete");
+              }, 500)
+            } else if (aiSpot === 3) {
+              $('#s3').addClass("filled");
+              setTimeout(() => {
+                $('#s3').addClass("complete");
+              }, 500)
+            } else if (aiSpot === 4) {
+              $('#s4').addClass("filled");
+              setTimeout(() => {
+                $('#s4').addClass("complete");
+              }, 500)
+            } else if (aiSpot === 5) {
+              $('#s5').addClass("filled");
+              setTimeout(() => {
+                $('#s5').addClass("complete");
+              }, 500)
+            } else if (aiSpot === 6) {
+              $('#s6').addClass("filled");
+              setTimeout(() => {
+                $('#s6').addClass("complete");
+              }, 500)
+            } else if (aiSpot === 7) {
+              $('#s7').addClass("filled");
+              setTimeout(() => {
+                $('#s7').addClass("complete");
+              }, 500)
+            } else if (aiSpot === 8) {
+              $('#s8').addClass("filled");
+              setTimeout(() => {
+                $('#s8').addClass("complete");
+              }, 500)
+            }
+            origBoard[aiSpot] = aiPlayer;
+            updateBoard(aiPlayer, aiSpot);
+            setTimeout(() => {
+              if (winning(origBoard, aiPlayer)) {
+                win(aiPlayer);
+                stopGame();
+              }
+            }, 600)
+          }, 1000)
+          setTimeout(() => {
+            turn = 0;
+            checkDraw();
+          }, 1800)
+        }
+      } else {
+        console.log("Can't play here, the spot is already taken");
+      }
+    }
+    let twoGame = () => {
+      let twoPlayer = playsFirst;
+      if (twoPlayer == "P1") {
+        twoPlayer = huPlayer;
+      } else if (twoPlayer == "P2") {
+        twoPlayer = aiPlayer;
+      } else {
+        let numRandom = Math.floor(Math.random() * 100) + 1;
+        if (numRandom < 50) {
+          twoPlayer = huPlayer;
+        } else {
+          twoPlayer = aiPlayer;
+        }
+      }
+      if (!$(event.currentTarget).hasClass('filled')) {
+        if (turn === 0) {
+          $(event.currentTarget).addClass("filled");
+          setTimeout(() => {
+            $(event.currentTarget).addClass("complete");
+          }, 500)
+          let id2 = findSpot($(event.currentTarget));
+          origBoard[id2] = twoPlayer;
+          updateBoard(twoPlayer, id2);
+          if (winning(origBoard, twoPlayer)) {
+            win(twoPlayer);
+            stopGame();
+          }
+          turn = 1;
+          checkDraw();
+        } else {
+          return;
+        }
+      } else {
+        console.log("Can't play here, the spot is already taken");
+      }
+      if (turn === 1) {
+        if (twoPlayer === huPlayer) {
+          playsFirst = "P2";
+        } else if (twoPlayer === aiPlayer) {
+          playsFirst = "P1";
+        }
+        turn = 0;
+      }
+    }
+    if (numPlayers == 1) {
+      oneGame();
+    } else {
+      twoGame();
     }
   })
 })

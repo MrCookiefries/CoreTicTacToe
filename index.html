@@ -11,6 +11,7 @@
     <div class="main">
       <h1 class="title">Tic Tac Toe</h1>
       <p class="play">Start</p>
+      <p class="help" title="How To Play">&#9432;</p>
     </div>
     <div class="options">
       <h2 class="numPlayers">Players</h2>
@@ -33,7 +34,7 @@
       <p class="startMessage"></p>
     </div>
   </section>
-  <section class="game">
+  <section class="game" style="display: none;">
     <div class="spot" id="s0"><span class="text"> </span></div>
     <div class="spot" id="s1"><span class="text"> </span></div>
     <div class="spot" id="s2"><span class="text"> </span></div>
@@ -44,10 +45,9 @@
     <div class="spot" id="s7"><span class="text"> </span></div>
     <div class="spot" id="s8"><span class="text"> </span></div>
   </section>
-  <section class="end">
-    <h1 class="message"></h1>
-    <p>Play Again</p>
-    <p>Home</p>
+  <section class="end" style="display: none;">
+    <h1 class="final-msg">Game Over</h1>
+    <p class="play restart">Play Again</p>
   </section>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="./script.js"></script>
