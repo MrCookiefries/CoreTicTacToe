@@ -225,6 +225,10 @@ let turn = 0;
 let numPlayers = null;
 let playsFirst = null;
 let moveOn = false;
+setInterval(() => {
+  let currentlyPlaying = document.getElementById("currently-playing");
+  currentlyPlaying.innerHTML = playsFirst;
+}, 1000)
 
 $(document).ready(() => {
   $('.help').on('click', () => {
@@ -251,11 +255,17 @@ $(document).ready(() => {
       numPlayers = 1;
       $("#cpu").html("CPU");
       playsFirst = "CPU";
+      $("#random-selection").show();
     } else {
       numPlayers = 2;
       $("#cpu").html("P2");
       playsFirst = "P2";
+      $("#random-selection").hide();
+      $("#random-selection").css({
+        "border": '4px inset var(--blue)'
+      })
     }
+    $('.numPlayers').slideUp(600);
     $('.playerIcon').slideDown(600);
     $(".startMessage").hide();
   })
@@ -273,6 +283,7 @@ $(document).ready(() => {
       huPlayer = "O";
       aiPlayer = "X";
     }
+    $('.playerIcon').slideUp(600);
     $('.firstPlay').slideDown(600);
     $(".startMessage").hide();
   })
@@ -320,6 +331,9 @@ $(document).ready(() => {
         let randomNumber = Math.floor(Math.random() * 100) + 1;
         if (randomNumber < 50) {
           cpuGame();
+          playsFirst = "CPU";
+        } else {
+          playsFirst = "P1";
         }
       }
     }
@@ -420,6 +434,7 @@ $(document).ready(() => {
     breakPoint = true;
   }
   $('.spot').on('click', event => {
+    $(".currently-playing").hide();
     let oneGame = () => {
       if (!$(event.currentTarget).hasClass('filled')) {
         if (turn === 0) {

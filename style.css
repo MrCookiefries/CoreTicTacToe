@@ -176,8 +176,15 @@ html, body {
   bottom: 30%;
 }
 
-.end p {
-
+p.currently-playing {
+  position: absolute;
+  color: var(--white);
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 24px;
+  background-color: gray;
+  padding: 4px;
 }
 
 .game {
@@ -223,12 +230,12 @@ html, body {
     transform: scale(1.2);
 }
 
-.filled {
+.filled span {
     transition: transform 600ms linear;
     transform: rotate(360deg) scale(0.6);
 }
 
-.complete {
+.complete span {
     transition: transform 400ms linear;
     transform: scale(1);
 }
@@ -346,24 +353,14 @@ html, body {
 }
 
 @media screen and (orientation: portrait) {
-    .game {
-        height: 90vw;
-        width: 90vw;
-    }
-
-    .menu {
+    .game, .menu, .end {
         height: 90vw;
         width: 90vw;
     }
 }
 
 @media screen and (orientation: landscape) {
-    .game {
-        height: 90vh;
-        width: 90vh;
-    }
-
-    .menu {
+    .game, .menu, .end {
         height: 90vh;
         width: 90vh;
     }
